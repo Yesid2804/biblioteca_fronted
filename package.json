@@ -1,5 +1,5 @@
 {
-  "name": "material-dashboard-react",
+  "name": "biblioteca",
   "version": "1.9.0",
   "description": "Material Dashboard React. Coded by Creative Tim",
   "private": false,
@@ -17,9 +17,11 @@
     "react-chartist": "0.14.3",
     "react-dom": "16.13.1",
     "react-google-maps": "9.4.5",
+    "react-hook-form": "^6.4.0",
     "react-router-dom": "5.2.0",
     "react-scripts": "3.4.1",
-    "react-swipeable-views": "0.13.9"
+    "react-swipeable-views": "0.13.9",
+    "yup": "^0.29.3"
   },
   "scripts": {
     "start": "react-scripts start",

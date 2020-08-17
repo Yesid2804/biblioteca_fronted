@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 import PropTypes from "prop-types";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -6,7 +6,10 @@ import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
+import Button from "components/CustomButtons/Button.js";
 import TableCell from "@material-ui/core/TableCell";
+import Icon from "@material-ui/core/Icon";
+
 // core components
 import styles from "assets/jss/material-dashboard-react/components/tableStyle.js";
 
@@ -23,14 +26,19 @@ export default function CustomTable(props) {
             <TableRow className={classes.tableHeadRow}>
               {tableHead.map((prop, key) => {
                 return (
-                  <TableCell
-                    className={classes.tableCell + " " + classes.tableHeadCell}
-                    key={key}
-                  >
-                    {prop}
-                  </TableCell>
+                  <Fragment>
+                    <TableCell
+                      className={classes.tableCell + " " + classes.tableHeadCell}
+                      key={key}
+                    >
+                      {prop}
+                    </TableCell>
+                  </Fragment>
                 );
               })}
+              <TableCell>
+                Opciones
+              </TableCell>
             </TableRow>
           </TableHead>
         ) : null}
@@ -40,12 +48,20 @@ export default function CustomTable(props) {
               <TableRow key={key} className={classes.tableBodyRow}>
                 {prop.map((prop, key) => {
                   return (
-                    <TableCell className={classes.tableCell} key={key}>
-                      {prop}
-                    </TableCell>
+                    <Fragment>
+                      <TableCell className={classes.tableCell} key={key}>
+                        {prop}
+                      </TableCell>
+                    </Fragment>
                   );
                 })}
+                <TableCell>
+                  <Icon style={{cursor:'pointer'}} size="sm" color="action">edit</Icon>
+                  <Icon style={{cursor:'pointer'}} size="sm" color="error">delete</Icon>
+                </TableCell>
               </TableRow>
+
+              
             );
           })}
         </TableBody>

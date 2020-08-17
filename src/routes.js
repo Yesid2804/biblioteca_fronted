@@ -55,14 +55,14 @@ const dashboardRoutes = [
     component: ListLibros,
     layout: "/admin"
   },
-  {
-    path: "/usuario",
-    name: "Usuario",
-    rtlName: "ملف تعريفي للمستخدم",
-    icon: Person,
-    component: UserProfile,
-    layout: "/admin"
-  },
+  // {
+  //   path: "/usuario",
+  //   name: "Usuario",
+  //   rtlName: "ملف تعريفي للمستخدم",
+  //   icon: Person,
+  //   component: UserProfile,
+  //   layout: "/admin"
+  // },
   {
     path: "/table",
     name: "Prestamo",
@@ -71,14 +71,14 @@ const dashboardRoutes = [
     component: TableList,
     layout: "/admin"
   },
-  // {
-  //   path: "/typography",
-  //   name: "Typography",
-  //   rtlName: "طباعة",
-  //   icon: LibraryBooks,
-  //   component: Typography,
-  //   layout: "/admin"
-  // },
+  {
+    path: "/typography",
+    name: "Entrega",
+    rtlName: "طباعة",
+    icon: LibraryBooks,
+    component: Typography,
+    layout: "/admin"
+  },
   // {
   //   path: "/icons",
   //   name: "Icons",

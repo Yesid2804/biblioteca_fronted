@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -8,6 +8,10 @@ import Table from "components/Table/Table.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
+import CustomInput from "components/CustomInput/CustomInput.js";
+import Button from "components/CustomButtons/Button.js";
+import axios from "axios";
+import Icon from "@material-ui/core/Icon";
 
 const styles = {
   cardCategoryWhite: {
@@ -42,71 +46,85 @@ const styles = {
 const useStyles = makeStyles(styles);
 
 export default function TableList() {
+  const url = 'http://localhost:8000/api/libros';
+  const [libros, setLibros] = useState([]);
+  useEffect(() => {
+    async function getLibros()  {
+      await axios.get(`${url}`)
+        .then((res) => {
+          const listLibros = [];
+          res.data.forEach(libro => {
+            listLibros.push([libro.titulo,libro.autor]);
+          });
+          setLibros(listLibros);
+        })
+    }
+    getLibros();
+  }, [])
+  function formularioLibro() {
+  }
+
   const classes = useStyles();
   return (
     <GridContainer>
-      <GridItem xs={12} sm={12} md={12}>
+    <GridItem xs={6} sm={6} md={6}>
+      <Card>
+        <CardHeader color="primary">
+          <h4 className={classes.cardTitleWhite}>Prestamos</h4>
+          <p className={classes.cardCategoryWhite}>
+            
+          </p>
+        </CardHeader>
+        <CardBody>
+          
+          <Icon style={{cursor:'pointer'}} size="sm" color="action" onClick={formularioLibro()} >library_add </Icon>
+          <Table
+              tableHeaderColor="primary"
+              tableHead={["Nombre del Cliene", "cedula"]}
+              tableData={libros}  
+          />
+        </CardBody>
+      </Card>
+    </GridItem>
+    {
+      !formularioLibro() ? 
+      <GridItem xs={6} sm={6} md={6}>
         <Card>
           <CardHeader color="primary">
             <h4 className={classes.cardTitleWhite}>Prestamo</h4>
-            <p className={classes.cardCategoryWhite}>
-              Here is a subtitle for this table
-            </p>
+            <p className={classes.cardCategoryWhite}></p>
           </CardHeader>
           <CardBody>
-            <Table
-              tableHeaderColor="primary"
-              tableHead={["Name", "Country", "City", "Salary"]}
-              tableData={[
-                ["Dakota Rice", "Niger", "Oud-Turnhout", "$36,738"],
-                ["Minerva Hooper", "Curaçao", "Sinaai-Waas", "$23,789"],
-                ["Sage Rodriguez", "Netherlands", "Baileux", "$56,142"],
-                ["Philip Chaney", "Korea, South", "Overland Park", "$38,735"],
-                ["Doris Greene", "Malawi", "Feldkirchen in Kärnten", "$63,542"],
-                ["Mason Porter", "Chile", "Gloucester", "$78,615"]
-              ]}
-            />
+            <GridContainer > 
+                  <GridItem xs={6} sm={6} md={6}>
+                    <CustomInput
+                      labelText="Nombre del Cliente"
+                      id="nCliente"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      inputProps={{
+                      }}
+                    />
+                  </GridItem>
+                  <GridItem xs={6} sm={6} md={6}>
+                    <CustomInput
+                      labelText="Cedula del Cliente"
+                      id="cCliente"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                    />
+                  </GridItem>
+            </GridContainer>
+            <Button color="success">Guardar</Button>
           </CardBody>
         </Card>
-      </GridItem>
-      <GridItem xs={12} sm={12} md={12}>
-        <Card plain>
-          <CardHeader plain color="primary">
-            <h4 className={classes.cardTitleWhite}>
-              Table on Plain Background
-            </h4>
-            <p className={classes.cardCategoryWhite}>
-              Here is a subtitle for this table
-            </p>
-          </CardHeader>
-          <CardBody>
-            <Table
-              tableHeaderColor="primary"
-              tableHead={["ID", "Name", "Country", "City", "Salary"]}
-              tableData={[
-                ["1", "Dakota Rice", "$36,738", "Niger", "Oud-Turnhout"],
-                ["2", "Minerva Hooper", "$23,789", "Curaçao", "Sinaai-Waas"],
-                ["3", "Sage Rodriguez", "$56,142", "Netherlands", "Baileux"],
-                [
-                  "4",
-                  "Philip Chaney",
-                  "$38,735",
-                  "Korea, South",
-                  "Overland Park"
-                ],
-                [
-                  "5",
-                  "Doris Greene",
-                  "$63,542",
-                  "Malawi",
-                  "Feldkirchen in Kärnten"
-                ],
-                ["6", "Mason Porter", "$78,615", "Chile", "Gloucester"]
-              ]}
-            />
-          </CardBody>
-        </Card>
-      </GridItem>
-    </GridContainer>
+    </GridItem>      
+          
+      :
+      null            
+    }
+  </GridContainer>
   );
 }

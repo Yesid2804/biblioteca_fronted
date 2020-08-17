@@ -17,5 +17,9 @@ module.exports = {
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:prettier/recommended"
-  ]
+  ],
+  rules: {
+    linebreakStyle: ["error", "windows"],
+    quotes: [4, "single"]
+  }
 };
